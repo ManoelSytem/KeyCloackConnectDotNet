@@ -51,7 +51,7 @@ namespace KeyCloak3
                 //        var a = ctx.Principal;
                 //    }
                 //};
-
+                
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     NameClaimType = "name",

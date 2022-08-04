@@ -21,13 +21,13 @@ namespace KeyCloak3
         {
             services.AddControllers()
                 .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
             {
                 options.Authority = this.Configuration["Oidc:Authority"];
                 options.Audience = this.Configuration["Oidc:ClientId"];
                 options.IncludeErrorDetails = true;
+                options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateAudience = false,

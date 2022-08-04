@@ -45,6 +45,7 @@ namespace KeyCloak.Controllers
         [Route("signin-oidc")]
         [HttpGet]
         public IActionResult Signin()
+        
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
