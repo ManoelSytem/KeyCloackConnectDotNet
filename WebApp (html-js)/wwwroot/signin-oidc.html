@@ -1,0 +1,97 @@
+﻿<!-- Include Bootstrap from a CDN (Content Delivery Network) -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!DOCTYPE html>
+<html lang="en">
+<HEAD>
+    <script src="openidconnect.js"></script>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: monospace;
+            margin: 1em 0px;
+            font-size: 12px;
+        }
+
+        .table-striped > tbody > tr:nth-of-type(odd) {
+            background-color: black;
+        }
+
+        a {
+            text-decoration: none;
+            color: gray;
+        }
+
+            a:link {
+            }
+
+            a:visited {
+            }
+
+            a:hover {
+                color: cyan;
+            }
+
+        hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #222222;
+            margin: 1em 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        var clientInfo = {
+            client_id: 'aspnetcore-keycloak',
+            redirect_uri: 'https://localhost:5001/signin-oidc-callback.html'
+        };
+
+        var providerInfo = OIDC.discover('https://global-keycloak.azurewebsites.net/auth/realms/master');
+        OIDC.setClientInfo(clientInfo);
+        OIDC.setProviderInfo(providerInfo);
+        OIDC.storeInfo(providerInfo, clientInfo);
+        // Remove State and Nonce from previous session
+        sessionStorage.removeItem('state');
+        sessionStorage.removeItem('nonce');
+        loginRequest = OIDC.generateLoginRequest({
+            scope: 'openid profile email',
+            response_type: 'token id_token'
+        });
+    </script>
+
+</HEAD>
+
+<BODY>
+    <div class="container" style="margin-bottom: 50px;">
+        <h1>Client Side > Implicit Flow - Signin Page</h1>
+        <a href="/index.html">home</a>
+        <br>
+        <b>clientInfo</b>
+        <div id="clientInfo">
+            clientInfo not found
+        </div>
+        <script type="text/javascript">
+            document.getElementById('clientInfo').innerHTML = JSONObjToHTMLTable(clientInfo);
+        </script>
+        <b>loginRequest</b>
+        <div id="loginRequest">
+            loginRequest not generated yet
+        </div>
+        <script type="text/javascript">
+            document.getElementById('loginRequest').innerHTML = JSONObjToHTMLTable(loginRequest);
+        </script>
+        <br>
+        <div class="buttons">
+            <button onClick="OIDC.login( {scope : 'openid profile email',
+          response_type : 'token id_token'} );"
+                    type="button" class="btn btn-success">
+                Authenticate
+            </button>
+        </div>
+    </div>
+</BODY>
+
+</html>
