@@ -60,6 +60,7 @@ namespace KeyCloak3
                 };
             });
 
+
             // access token: http://localhost:8080/auth/realms/master/protocol/openid-connect/auth?response_type=token&client_id=naos-sample&redirect_uri=https://localhost:5001/signin-oidc
 
             services.AddAuthorization();

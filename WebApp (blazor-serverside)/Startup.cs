@@ -127,6 +127,7 @@ namespace web
                 };
             });
 
+
             services.AddAuthorization();
             services.AddHttpContextAccessor();
         }
